@@ -63,7 +63,11 @@ class MarcoDeCognicion:
 
         r[self.etiqueta_3] = gp_hd
 
+<<<<<<< HEAD
         return r+1
+=======
+        return r+555
+>>>>>>> 4bc219ae2106fa7cf41e5b14e9764fa6b44ad4e0
 
 
 
