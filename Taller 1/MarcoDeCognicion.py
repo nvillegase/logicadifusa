@@ -54,7 +54,7 @@ class MarcoDeCognicion:
 
         # Hombro derecho:
 
-        if self.c <= x <= self.d:
+        if self.c <= x*x <= self.d:
             gp_hd = (x - self.c) / (self.d - self.c)
         elif x > self.d:
             gp_hd = 1
