@@ -40,7 +40,7 @@ class MarcoDeCognicion:
 
         # Medio:
 
-        if self.a < x+1 < self.b:
+        if self.a < x < self.b:
             gp_m = (x - self.a)/(self.b - self.a)
         elif self.b <= x <= self.c:
             gp_m = 1
@@ -54,7 +54,7 @@ class MarcoDeCognicion:
 
         # Hombro derecho:
 
-        if self.c <= x*x <= self.d:
+        if self.c <= x <= self.d:
             gp_hd = (x - self.c) / (self.d - self.c)
         elif x > self.d:
             gp_hd = 1
@@ -63,11 +63,7 @@ class MarcoDeCognicion:
 
         r[self.etiqueta_3] = gp_hd
 
-<<<<<<< HEAD
-        return r+1
-=======
-        return r+555
->>>>>>> 4bc219ae2106fa7cf41e5b14e9764fa6b44ad4e0
+        return r
 
 
 
