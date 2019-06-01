@@ -1,6 +1,7 @@
 from MarcoDeCognicion import MarcoDeCognicion
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 # Cargar base de datos:
 
@@ -48,7 +49,18 @@ for region in regiones:
     print(esp_muj_afr.describe())
     print('\n')
 
-plt.plot()
+promedio_mundial = data[var].mean()
+
+objects = (region for region in regiones)
+y_pos = np.arange(len(regiones))
+plt.bar(y_pos, espvida, align='center', alpha=0.5, label='Esperanza de vida')
+plt.xticks(y_pos, objects)
+plt.ylabel('Esperanza de vida (años)')
+plt.title('Esperanza de vida en mujeres según la región')
+plt.plot(y_pos, [promedio_mundial for it in y_pos], 'k:', label='Promedio mundial')
+plt.legend(loc=4)
+plt.show()
+
 '''
 
     Inicio de marcos de cognición:
