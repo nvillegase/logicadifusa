@@ -40,7 +40,7 @@ class MarcoDeCognicion:
 
         # Medio:
 
-        if self.a < x < self.b:
+        if self.a < x+1 < self.b:
             gp_m = (x - self.a)/(self.b - self.a)
         elif self.b <= x <= self.c:
             gp_m = 1
