@@ -54,31 +54,18 @@ for region in regiones:
 
 #Cálculo de vértices para el marco de cognición
 vertices_punto2 = []
-vert_africa = []
-vert_asia = []
-vert_europa = []
-vert_oriente_medio = []
-vert_oceania = []
-vert_america = []
-
 for i in range (0,6):
     vertices_punto2.append(int(espvida[i] - 4*espvida_std[i]))
     vertices_punto2.append(int(espvida[i] - 2*espvida_std[i]))
     vertices_punto2.append(int(espvida[i] + 2*espvida_std[i]))
     vertices_punto2.append(int(espvida[i] + 4*espvida_std[i]))
-for k in range (0,24):
-    if 0<=k<4:
-        vert_africa.append(vertices_punto2[k])
-    elif  4<=k<8:
-        vert_asia.append(vertices_punto2[k])
-    elif  8<=k<12:
-        vert_europa.append(vertices_punto2[k])
-    elif  12<=k<16:
-        vert_oriente_medio.append(vertices_punto2[k])
-    elif  16<=k<20:
-        vert_oceania.append(vertices_punto2[k])
-    else: 
-        vert_america.append(vertices_punto2[k])
+
+vert_africa = vertices_punto2[0:4]
+vert_asia = vertices_punto2[4:8]
+vert_europa = vertices_punto2[8:12]
+vert_oriente_medio = vertices_punto2[12:16]
+vert_oceania = vertices_punto2[16:20]
+vert_america = vertices_punto2[20:24]
 
 #Opcional para visualizar los vértices de cada región
 '''
@@ -139,5 +126,3 @@ for vertice in vertices:
     plt.grid(True)
     plt.show()
     z=z+1
-
-
