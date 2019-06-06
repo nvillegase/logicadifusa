@@ -6,7 +6,6 @@ import numpy as np
 # Cargar base de datos:
 
 data = pd.read_csv('../Indicadores Mundiales_act.csv')
-
 datos_disponibles = data.columns.values.tolist()
 print("Datos disponibles: {}".format(datos_disponibles))
 
@@ -36,93 +35,100 @@ print("Datos disponibles: {}".format(datos_disponibles))
 
 '''
 
-regiones = ['África', 'Asia', 'Europa', 'Oriente Medio', 'Oceanía', 'América']
-espvida = []
-espvida_std = [] #Desviación estandar para definir limites de las etiquetas lingüisticas
 
-var = 'Esperanza de vida (mujeres)'
 
-#Cálculo de la media y la desviación estandar para cada región
-for region in regiones:
-    esp_muj = data[data['Región'] == region][var]
-    espvida.append(esp_muj.mean())
-    espvida_std.append(esp_muj.std())
-    print('-'*50)
-    print('[Región: {}]'.format(region))
-    print(esp_muj.describe())
-    print('\n')
 
-#Cálculo de vértices para el marco de cognición
-vertices_punto2 = []
-for i in range (0,6):
-    vertices_punto2.append(int(espvida[i] - 4*espvida_std[i]))
-    vertices_punto2.append(int(espvida[i] - 2*espvida_std[i]))
-    vertices_punto2.append(int(espvida[i] + 2*espvida_std[i]))
-    vertices_punto2.append(int(espvida[i] + 4*espvida_std[i]))
+gen = ['mujeres', 'hombres']
 
-vert_africa = vertices_punto2[0:4]
-vert_asia = vertices_punto2[4:8]
-vert_europa = vertices_punto2[8:12]
-vert_oriente_medio = vertices_punto2[12:16]
-vert_oceania = vertices_punto2[16:20]
-vert_america = vertices_punto2[20:24]
+for g in gen:
 
-#Opcional para visualizar los vértices de cada región
-'''
-print('Los vértices para {} son:'.format(regiones[0]))
-print('{}'.format(vert_africa))
-print('Los vértices para {} son:'.format(regiones[1]))
-print('{}'.format(vert_asia))
-print('Los vértices para {} son:'.format(regiones[2]))
-print('{}'.format(vert_europa))
-print('Los vértices para {} son:'.format(regiones[3]))
-print('{}'.format(vert_oriente_medio))
-print('Los vértices para {} son:'.format(regiones[4]))
-print('{}'.format(vert_oceania))
-print('Los vértices para {} son:'.format(regiones[5]))
-print('{}'.format(vert_america))
-'''
+    regiones = ['África', 'Asia', 'Europa', 'Oriente Medio', 'Oceanía', 'América']
+    espvida = []
+    espvida_std = [] #Desviación estandar para definir limites de las etiquetas lingüisticas
 
-promedio_mundial = data[var].mean()
+    var = 'Esperanza de vida ({})'.format(g)
 
-objects = (region for region in regiones)
-y_pos = np.arange(len(regiones))
-plt.bar(y_pos, espvida, align='center', alpha=0.5, label='Esperanza de vida')
-plt.xticks(y_pos, objects)
-plt.ylabel('Esperanza de vida (años)')
-plt.title('Esperanza de vida en mujeres según la región')
-plt.plot(y_pos, [promedio_mundial for it in y_pos], 'k:', label='Promedio mundial')
-plt.legend(loc=4)
-plt.show()
+    #Cálculo de la media y la desviación estandar para cada región
+    for region in regiones:
+        esp_vida = data[data['Región'] == region][var]
+        espvida.append(esp_vida.mean())
+        espvida_std.append(esp_vida.std())
+        print('-'*50)
+        print('[Región: {}]'.format(region))
+        print(esp_vida.describe())
+        print('\n')
 
-'''
-    Inicio de marcos de cognición:
-'''
-#Se grafican los marcos de cognición de cada región
+    #Cálculo de vértices para el marco de cognición
+    vertices_punto2 = []
+    for i in range (0,6):
+        vertices_punto2.append(int(espvida[i] - 4*espvida_std[i]))
+        vertices_punto2.append(int(espvida[i] - 2*espvida_std[i]))
+        vertices_punto2.append(int(espvida[i] + 2*espvida_std[i]))
+        vertices_punto2.append(int(espvida[i] + 4*espvida_std[i]))
 
-z=0
-vertices=[vert_africa,vert_asia,vert_europa,vert_oriente_medio,vert_oceania,vert_america]
+    vert_africa = vertices_punto2[0:4]
+    vert_asia = vertices_punto2[4:8]
+    vert_europa = vertices_punto2[8:12]
+    vert_oriente_medio = vertices_punto2[12:16]
+    vert_oceania = vertices_punto2[16:20]
+    vert_america = vertices_punto2[20:24]
 
-for vertice in vertices:
-    mc = MarcoDeCognicion(vertice, etiquetas=['Baja', 'Normal', 'Alta'])
-    x_range = range(0, 110)
-    y1 = []
-    y2 = []
-    y3 = []
+    #Opcional para visualizar los vértices de cada región
+    '''
+    print('Los vértices para {} son:'.format(regiones[0]))
+    print('{}'.format(vert_africa))
+    print('Los vértices para {} son:'.format(regiones[1]))
+    print('{}'.format(vert_asia))
+    print('Los vértices para {} son:'.format(regiones[2]))
+    print('{}'.format(vert_europa))
+    print('Los vértices para {} son:'.format(regiones[3]))
+    print('{}'.format(vert_oriente_medio))
+    print('Los vértices para {} son:'.format(regiones[4]))
+    print('{}'.format(vert_oceania))
+    print('Los vértices para {} son:'.format(regiones[5]))
+    print('{}'.format(vert_america))
+    '''
 
-    for x in x_range:
-        gpx = mc.grado_de_pertenencia(x)
-        y1.append(gpx['Baja'])
-        y2.append(gpx['Normal'])
-        y3.append(gpx['Alta'])
-        
-    plt.plot(x_range, y1,label='Esperanza Baja')
-    plt.plot(x_range, y2,label='Esperanza Media')
-    plt.plot(x_range, y3,label='Esperanza Alta')
-    plt.title('Esperanza de vida en {}'.format(regiones[z]))
-    plt.xlabel('X (años)') #Universo del discurso
-    plt.ylabel('µ(x)') #Grados de pertenencia
-    plt.legend(loc=0) #Loc=0 permite la mejor ubicación
-    plt.grid(True)
+    promedio_mundial = data[var].mean()
+
+    objects = (region for region in regiones)
+    y_pos = np.arange(len(regiones))
+    plt.bar(y_pos, espvida, align='center', alpha=0.5, label='Esperanza de vida')
+    plt.xticks(y_pos, objects)
+    plt.ylabel('Esperanza de vida (años)')
+    plt.title('Esperanza de vida en {} según la región'.format(g))
+    plt.plot(y_pos, [promedio_mundial for it in y_pos], 'k:', label='Promedio mundial')
+    plt.legend(loc=4)
     plt.show()
-    z=z+1
+
+    '''
+        Inicio de marcos de cognición:
+    '''
+    #Se grafican los marcos de cognición de cada región
+
+    z=0
+    vertices=[vert_africa,vert_asia,vert_europa,vert_oriente_medio,vert_oceania,vert_america]
+
+    for vertice in vertices:
+        mc = MarcoDeCognicion(vertice, etiquetas=['Baja', 'Normal', 'Alta'])
+        x_range = range(0, 110)
+        y1 = []
+        y2 = []
+        y3 = []
+
+        for x in x_range:
+            gpx = mc.grado_de_pertenencia(x)
+            y1.append(gpx['Baja'])
+            y2.append(gpx['Normal'])
+            y3.append(gpx['Alta'])
+            
+        plt.plot(x_range, y1,label='Esperanza Baja')
+        plt.plot(x_range, y2,label='Esperanza Media')
+        plt.plot(x_range, y3,label='Esperanza Alta')
+        plt.title('Esperanza de vida de {} en {}'.format(g, regiones[z]))
+        plt.xlabel('X (años)') #Universo del discurso
+        plt.ylabel('µ(x)') #Grados de pertenencia
+        plt.legend(loc=0) #Loc=0 permite la mejor ubicación
+        plt.grid(True)
+        plt.show()
+        z=z+1

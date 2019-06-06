@@ -3,9 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 mc = MarcoDeCognicion(vertices=[10, 20, 40, 60], etiquetas=['Niño', 'Joven', 'Adulto'])
-
-
-
 gp = mc.grado_de_pertenencia(15)
 
 x_range = range(0, 30)
