@@ -67,7 +67,8 @@ class MarcoDeCognicion:
 
 class ModificadoresLinguisticos:
 
-    def muy(vertices):
+    def muy(vertices, x):
+        
         a_orig = vertices[0]
         b_orig = vertices[1]
         c_orig = vertices[2]
@@ -76,11 +77,56 @@ class ModificadoresLinguisticos:
         a = 2/3 * a_orig
         b = (b_orig + c_orig) * 0.5 - 0.333*(c_orig - b_orig)
         c = (b_orig + c_orig) * 0.5 + 0.333*(c_orig - b_orig)
-        d = 1.2*d_orig
+        d = 1.1*d_orig
 
-        return [a, b, c, d]
+        # Cálculo del grado de pertenencia:
 
-    def extremadamente(vertices):
+        r = []
+
+        # Hombro izquierdo:
+
+        if x < a:
+            gp_hi = 1
+        elif a <= x <= b:
+            gp_hi = 1 + (a - x)/(b - a)
+        else:
+            gp_hi = 0
+
+        r.append(gp_hi)
+
+
+        # Medio:
+
+        if a < x < b:
+            gp_m = (x - a)/(b - a)
+        elif b <= x <= c:
+            gp_m = 1
+        elif c < x <= d:
+            gp_m = 1 + (c - x) / (d - c)
+        else:
+            gp_m = 0
+
+        r.append(gp_m)
+
+
+        # Hombro derecho:
+
+        if c <= x <= d:
+            gp_hd = (x - c) / (d - c)
+        elif x > d:
+            gp_hd = 1
+        else:
+            gp_hd = 0
+
+        r.append(gp_hd)
+
+        return {
+            'grados_pert' : [gp_hi**3, gp_m**3, gp_hd**3],
+            'vertices' : [a, b, c, d]
+        }
+
+    def extremadamente(vertices, x):
+
         a_orig = vertices[0]
         b_orig = vertices[1]
         c_orig = vertices[2]
@@ -89,10 +135,50 @@ class ModificadoresLinguisticos:
         a = 1/3 * a_orig
         b = (b_orig + c_orig) * 0.5 - 0.1667*(c_orig - b_orig)
         c = (b_orig + c_orig) * 0.5 + 0.1667*(c_orig - b_orig)
-        d = 1.34*d_orig
+        d = 1.15*d_orig
 
-        return [a, b, c, d]
+        # Cálculo del grado de pertenencia:
+
+        r = []
+
+        # Hombro izquierdo:
+
+        if x < a:
+            gp_hi = 1
+        elif a <= x <= b:
+            gp_hi = 1 + (a - x)/(b - a)
+        else:
+            gp_hi = 0
+
+        r.append(gp_hi)
 
 
+        # Medio:
+
+        if a < x < b:
+            gp_m = (x - a)/(b - a)
+        elif b <= x <= c:
+            gp_m = 1
+        elif c < x <= d:
+            gp_m = 1 + (c - x) / (d - c)
+        else:
+            gp_m = 0
+
+        r.append(gp_m)
 
 
+        # Hombro derecho:
+
+        if c <= x <= d:
+            gp_hd = (x - c) / (d - c)
+        elif x > d:
+            gp_hd = 1
+        else:
+            gp_hd = 0
+
+        r.append(gp_hd)
+
+        return {
+            'grados_pert' : [gp_hi**5, gp_m**5, gp_hd**5],
+            'vertices' : [a, b, c, d]
+        }
