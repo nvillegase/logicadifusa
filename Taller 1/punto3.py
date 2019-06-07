@@ -32,7 +32,8 @@ mc_esperanza_vida = MarcoDeCognicion(vertices_p3, etiqueta_linguistica_str)
 esp_vida_real_CO = data[data['País'] == 'Colombia']['Esperanza de vida (mujeres)'].mean()
 
 try:
-    etiqueta_linguistica = int(input('Seleccione la etiqueta lingüística:\n1: Esperanza de vida baja\n2: Esperanza de vida media\n3: Esperanza de vida alta.\n')) - 1
+    print('\nSean:\n1: Esperanza de vida baja\n2: Esperanza de vida media\n3: Esperanza de vida alta.\n')
+    etiqueta_linguistica = int(input('Seleccione la etiqueta lingüística: ')) - 1
     if etiqueta_linguistica not in [0, 1, 2]:
         raise ValueError('La opción seleccionada no es correcta.')
 except ValueError as ve:
@@ -40,7 +41,7 @@ except ValueError as ve:
     exit()
 
 try:
-    grado_pert_estimado = float(input('Ingrese el grado de pertenencia estimado:\n'))
+    grado_pert_estimado = float(input('Ingrese el grado de pertenencia estimado: '))
     if not (0 <= grado_pert_estimado <=
      1):
         raise ValueError('Debe ingresar un número entre 0 y 1.')
@@ -52,7 +53,7 @@ grado_pert_real = mc_esperanza_vida.grado_de_pertenencia(esp_vida_real_CO)
 grado_pert_real = grado_pert_real[etiqueta_linguistica_str[etiqueta_linguistica]]
 delta_gp = abs(grado_pert_estimado - grado_pert_real)
 
-mc_delta = MarcoDeCognicion([0.1, 0.2, 0.35, 0.45], ['Cierto', 'Poco cierto', 'Falso'])
+mc_delta = MarcoDeCognicion([0.1, 0.2, 0.35, 0.45], ['Cierta', 'Poco cierta', 'Falsa'])
 grado_verdad = mc_delta.grado_de_pertenencia(delta_gp)
 
 #esp_vida_real = 
@@ -65,10 +66,10 @@ for g in grado_verdad:
         veredicto = g
 
 print(
-    '\n\nResultado:\n\nEsperanza de vida promedio en América: {} años\n'.format(int(esp_vida.mean())) + \
-    'Esperanza de vida promedio en Colombia: {} años\n'.format(int(esp_vida_real_CO)) + \
+    '\nResultado:\n\nEsperanza de vida promedio (mujeres) en América: {} años\n'.format(int(esp_vida.mean())) + \
+    'Esperanza de vida promedio (mujeres) en Colombia: {} años\n'.format(int(esp_vida_real_CO)) + \
     'Grado de pertenencia al conjunto con esperanza de vida {}: {}\n'.format(etiqueta_linguistica_str[etiqueta_linguistica], grado_pert_real) + \
-    'Al evaluar el grado de la afirmación "Las mujeres en Colombia tienen un grado de pertenencia de {}'.format(grado_pert_estimado) + \
+    '\nAl evaluar el grado de la afirmación "Las mujeres en Colombia tienen un grado de pertenencia de {}'.format(grado_pert_estimado) + \
     ' al conjunto de las mujeres con esperanza de vida {}"\n'.format(etiqueta_linguistica_str[etiqueta_linguistica]) + \
     'Se determina que dicha afirmación es {}.'.format(veredicto)
 )
