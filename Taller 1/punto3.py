@@ -26,6 +26,7 @@ vertices_p3.append(int(espvida[0] + 4*espvida_std[0]))
 
 esp_vida_real_CO = data[data['País'] == 'Colombia']['Esperanza de vida (mujeres)'].mean()
 
+
 try:
     etiqueta_linguistica = input('Seleccione la etiqueta lingüística:\n1: Esperanza de vida baja\n2: Esperanza de vida media\n3: Esperanza de vida alta.\n')
     if int(etiqueta_linguistica) not in [1, 2, 3]:
@@ -36,7 +37,7 @@ except ValueError as ve:
 
 try:
     grado_pert_estimado = float(input('Ingrese el grado de pertenencia estimado:\n'))
-    if 0 <= float(grado_pert_estimado) <= 1:
+    if 1 < float(grado_pert_estimado) or float(grado_pert_estimado)<0:
         raise ValueError('Debe ingresar un número entre 0 y 1.')
 except ValueError as ve:
     print(ve)
@@ -44,7 +45,14 @@ except ValueError as ve:
 except TypeError:
     print('Debe ingresar un número.')
 
-
+try:
+    x_ingresado = float(input('Ingrese un valor de x en años:\n'))
+    if float(x_ingresado)<0:
+        raise ValueError('El valor no pertenece al Universo del discurso')
+except ValueError as ve:
+    print(ve)
+    exit() 
+ 
 
 
 # esp_vida_real = 
