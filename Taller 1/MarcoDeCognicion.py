@@ -65,5 +65,34 @@ class MarcoDeCognicion:
 
         return r
 
+class ModificadoresLinguisticos:
+
+    def muy(vertices):
+        a_orig = vertices[0]
+        b_orig = vertices[1]
+        c_orig = vertices[2]
+        d_orig = vertices[3]
+
+        a = 2/3 * a_orig
+        b = (b_orig + c_orig) * 0.5 - 0.333*(c_orig - b_orig)
+        c = (b_orig + c_orig) * 0.5 + 0.333*(c_orig - b_orig)
+        d = 1.2*d_orig
+
+        return [a, b, c, d]
+
+    def extremadamente(vertices):
+        a_orig = vertices[0]
+        b_orig = vertices[1]
+        c_orig = vertices[2]
+        d_orig = vertices[3]
+
+        a = 1/3 * a_orig
+        b = (b_orig + c_orig) * 0.5 - 0.1667*(c_orig - b_orig)
+        c = (b_orig + c_orig) * 0.5 + 0.1667*(c_orig - b_orig)
+        d = 1.34*d_orig
+
+        return [a, b, c, d]
+
+
 
 
