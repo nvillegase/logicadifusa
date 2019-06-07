@@ -54,7 +54,6 @@ except ValueError as ve:
     exit() 
  
 
-
 # esp_vida_real = 
 
 # mc_delta = MarcoDeCognicion([0.1, 0.25, 0.4], ['Cierto', 'Poco cierto', 'Falso'])

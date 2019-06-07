@@ -121,7 +121,7 @@ for g in gen:
             y1.append(gpx['Baja'])
             y2.append(gpx['Normal'])
             y3.append(gpx['Alta'])
-            
+  
         plt.plot(x_range, y1,label='Esperanza Baja')
         plt.plot(x_range, y2,label='Esperanza Media')
         plt.plot(x_range, y3,label='Esperanza Alta')
