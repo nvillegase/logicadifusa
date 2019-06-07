@@ -65,6 +65,7 @@ class MarcoDeCognicion:
 
         return r
 
+
 class ModificadoresLinguisticos:
 
     def muy(vertices, x):
